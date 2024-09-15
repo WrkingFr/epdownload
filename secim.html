@@ -17,7 +17,7 @@
             margin: 0;
         }
 
-        .device-container {
+        .device-container, .mobile-container {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -34,17 +34,13 @@
         }
 
         .device-option img {
-            width: 150px;
-            height: 150px;
+            width: 100px;
+            height: 100px;
             margin-bottom: 10px;
         }
 
         .device-option:hover {
             transform: scale(1.1);
-        }
-
-        .device-option p {
-            font-size: 18px;
         }
 
         /* Styles for the mobile version selector */
@@ -96,13 +92,33 @@
         .download-button:active {
             transform: scale(0.95);
         }
+
+        /* Styles for the back button */
+        .back-button {
+            padding: 10px 20px;
+            background-color: #555555;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #666666;
+        }
+
+        .back-button:active {
+            transform: scale(0.95);
+        }
     </style>
 </head>
 <body>
 
 <!-- Giriş Ekranı -->
 <div class="device-container" id="device-selector">
-    <div class="device-option" onclick="selectDevice('pc')">
+    <div class="device-option" onclick="selectDevice('windows')">
         <img src="https://cdn-icons-png.flaticon.com/512/1246/1246834.png" alt="PC Icon">
         <p>PC</p>
     </div>
@@ -125,6 +141,9 @@
     </div>
 
     <button class="download-button" id="download-button" style="display: none;" onclick="downloadResource()">Download</button>
+
+    <!-- Geri Dön Butonu -->
+    <button class="back-button" id="back-button" style="display:none;" onclick="goBack()">Go Back</button>
 </div>
 
 <script>
@@ -142,13 +161,15 @@
         }
     }
 
-    // Mobil versiyonu seçer
+    // Mobil versiyonu seçer ve geri dönüş butonunu gösterir
     function selectVersion(version) {
         selectedVersion = version;
         selectedHeart = null; // Reset heart selection
 
+        document.querySelector('.version-selector').style.display = 'none'; // Versiyon seçeneklerini gizle
         document.getElementById('heart-options').style.display = 'flex';
         document.getElementById('download-button').style.display = 'none';
+        document.getElementById('back-button').style.display = 'inline-block'; // Geri dön butonunu göster
     }
 
     // Kalp pozisyonunu seçer
@@ -168,6 +189,14 @@
         } else if (selectedVersion === '0.15.10' && selectedHeart === 'down') {
             window.open('https://www.youtube.com/@MoRnD01', '_blank');
         }
+    }
+
+    // Geri dönüş fonksiyonu
+    function goBack() {
+        document.querySelector('.version-selector').style.display = 'flex'; // Versiyon seçeneklerini geri getir
+        document.getElementById('heart-options').style.display = 'none'; // Kalp seçeneklerini gizle
+        document.getElementById('download-button').style.display = 'none'; // İndir butonunu gizle
+        document.getElementById('back-button').style.display = 'none'; // Geri dön butonunu gizle
     }
 </script>
 
