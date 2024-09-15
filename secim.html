@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Pack Selector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #3e3e3e;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #2e2e2e;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 1000px;
+        }
+
+        .version-selector {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .version-selector button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .version-selector button:hover {
+            background-color: #45a049;
+        }
+
+        .preview-section {
+            background-color: #1f1f1f;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .preview-section img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .heart-options {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .heart-options button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        .heart-options button:hover {
+            background-color: #45a049;
+        }
+
+        .download-button {
+            padding: 10px 20px;
+            background-color: orange;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .download-button:hover {
+            background-color: #f0a500;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="version-selector">
+        <button onclick="selectVersion('0.14.3')">0.14.3</button>
+        <button onclick="selectVersion('0.15.10')">0.15.10</button>
+    </div>
+
+    <div class="preview-section" id="preview-section">
+        <p>Seçim yapılmadı.</p>
+    </div>
+
+    <div class="heart-options" id="heart-options" style="display: none;">
+        <button onclick="selectHeart('up')">Kalpler Üstte</button>
+        <button onclick="selectHeart('down')">Kalpler Altta</button>
+    </div>
+
+    <button class="download-button" id="download-button" style="display: none;" onclick="downloadResource()">Download</button>
+</div>
+
+<script>
+    let selectedVersion = null;
+    let selectedHeart = null;
+
+    function selectVersion(version) {
+        selectedVersion = version;
+        selectedHeart = null; // Reset heart selection
+
+        document.getElementById('preview-section').innerHTML = `<p>${version} seçildi. Lütfen kalp yerleşimini seçin.</p>`;
+        document.getElementById('heart-options').style.display = 'flex';
+        document.getElementById('download-button').style.display = 'none';
+    }
+
+    function selectHeart(heartPosition) {
+        selectedHeart = heartPosition;
+
+        let previewText = selectedVersion === '0.14.3' ? '0.14.3 versiyonunda' : '0.15.10 versiyonunda';
+        let heartText = selectedHeart === 'up' ? 'Kalpler Üstte' : 'Kalpler Altta';
+        document.getElementById('preview-section').innerHTML = `<p>${previewText}, ${heartText} seçildi.</p>`;
+        document.getElementById('download-button').style.display = 'block';
+    }
+
+    function downloadResource() {
+        if (selectedVersion === '0.14.3' && selectedHeart === 'up') {
+            window.open('https://github.com/Bay', '_blank');
+        } else if (selectedVersion === '0.14.3' && selectedHeart === 'down') {
+            window.open('https://www.youtube.com/@newdaynewgame', '_blank');
+        } else if (selectedVersion === '0.15.10' && selectedHeart === 'up') {
+            window.open('https://github.com/BaySorry', '_blank');
+        } else if (selectedVersion === '0.15.10' && selectedHeart === 'down') {
+            window.open('https://www.youtube.com/@MoRnD01', '_blank');
+        }
+    }
+</script>
+
+</body>
+</html>
