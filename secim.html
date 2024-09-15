@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resource Pack Selector</title>
+    <title>Device Selector</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,6 +17,37 @@
             margin: 0;
         }
 
+        .device-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .device-option {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .device-option img {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 10px;
+        }
+
+        .device-option:hover {
+            transform: scale(1.1);
+        }
+
+        .device-option p {
+            font-size: 18px;
+        }
+
+        /* Styles for the mobile version selector */
         .container {
             background-color: #1c1c1c;
             padding: 40px;
@@ -69,7 +100,20 @@
 </head>
 <body>
 
-<div class="container">
+<!-- Giriş Ekranı -->
+<div class="device-container" id="device-selector">
+    <div class="device-option" onclick="selectDevice('pc')">
+        <img src="https://cdn-icons-png.flaticon.com/512/1246/1246834.png" alt="PC Icon">
+        <p>PC</p>
+    </div>
+    <div class="device-option" onclick="selectDevice('mobile')">
+        <img src="https://cdn-icons-png.flaticon.com/512/727/727399.png" alt="Mobile Icon">
+        <p>Mobile</p>
+    </div>
+</div>
+
+<!-- Mobil Versiyon Seçim Ekranı -->
+<div class="container" id="mobile-version" style="display:none;">
     <div class="version-selector">
         <button onclick="selectVersion('0.14.3')">0.14.3</button>
         <button onclick="selectVersion('0.15.10')">0.15.10</button>
@@ -84,9 +128,21 @@
 </div>
 
 <script>
+    // Seçilen cihaz türünü kaydetmek için değişken
     let selectedVersion = null;
     let selectedHeart = null;
 
+    // Cihaz seçildiğinde ekranlar arası geçişi sağlar
+    function selectDevice(device) {
+        if (device === 'mobile') {
+            document.getElementById('device-selector').style.display = 'none';
+            document.getElementById('mobile-version').style.display = 'block';
+        } else {
+            alert("This feature is only available for mobile users.");
+        }
+    }
+
+    // Mobil versiyonu seçer
     function selectVersion(version) {
         selectedVersion = version;
         selectedHeart = null; // Reset heart selection
@@ -95,11 +151,13 @@
         document.getElementById('download-button').style.display = 'none';
     }
 
+    // Kalp pozisyonunu seçer
     function selectHeart(heartPosition) {
         selectedHeart = heartPosition;
         document.getElementById('download-button').style.display = 'block';
     }
 
+    // Dosyayı indirir
     function downloadResource() {
         if (selectedVersion === '0.14.3' && selectedHeart === 'up') {
             window.open('https://github.com/Bay', '_blank');
