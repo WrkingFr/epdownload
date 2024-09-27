@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PortalTeam</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1d;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('https://raw.githubusercontent.com/WrkingFr/gndergelsinep/main/Paradise.png') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .profile-card {
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            width: 300px;
+            height: auto;
+            box-shadow: 0px 0px 15px 5px #7a42f4;
+            position: relative;
+        }
+
+        .profile-card img {
+            border-radius: 50%;
+            border: 4px solid #7a42f4;
+            width: 100px;
+            height: 100px;
+        }
+
+        .profile-card h1 {
+            font-size: 24px;
+            color: #7a42f4;
+        }
+
+        .profile-card p {
+            font-size: 14px;
+            margin: 10px 0;
+            color: #ccc;
+        }
+
+        .icons {
+            margin: 20px 0;
+        }
+
+        .icons a img {
+            width: 32px;
+            height: 32px;
+            margin: 10px;
+        }
+
+        .status {
+            font-size: 14px;
+            color: #00ff00;
+            margin: 10px 0;
+        }
+
+        .join-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #7a42f4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .join-button:hover {
+            background-color: #b69df9;
+        }
+
+        .download-section {
+            margin-top: 20px;
+            color: #ccc;
+        }
+
+        .download-section p {
+            margin: 5px 0;
+        }
+
+        .download-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .download-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<div class="profile-card">
+    <img src="https://cdn.discordapp.com/avatars/1059909311171674133/dc82d62b79da3c2139583f4cc4d51118.webp?size=80" alt="Profile Image">
+    <h1>PortalTeam</h1>
+    <p>meow!</p>
+
+    <div class="status" id="server-status">Fetching server status...</div>
+
+    <div class="icons">
+        <a href="https://www.youtube.com/@anyatatanova" target="_blank"><img src="https://i.hizliresim.com/g3gb5hs.png" alt="YouTube"></a>
+        <a href="https://discord.gg/2epa76g7" target="_blank"><img src="https://cdn.discordapp.com/icons/1075077463933190187/f35f1467554f0be2d64bf30bff09aa65.webp?size=100" alt="Discord"></a>
+    </div>
+
+    <div class="download-section">
+        <p><strong>Download EnderParadise</strong></p>
+        <a href="secim.html" class="download-button">Download</a>
+        <p id="last-updated">Fetching last updated date...</p>
+    </div>
+
+    <script>
+    
+        function fetchServerStatus() {
+            const apiUrl = 'https://api.mcstatus.io/v2/status/bedrock/gbabspe.sytes.net:26403';
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const serverStatusElement = document.getElementById('server-status');
+
+                    if (data.online) {
+                        serverStatusElement.innerText = `Server is Online! Players: ${data.players.online}/${data.players.max}`;
+                    } else {
+                        serverStatusElement.innerText = "Server is Offline.";
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching server status:', error);
+                    document.getElementById('server-status').innerText = "Error checking server status.";
+                });
+        }
+
+        function fetchLastUpdated() {
+            const lastUpdatedUrl = 'https://raw.githubusercontent.com/WrkingFr/gndergelsinep/refs/heads/main/mobilindirmetarih.txt';
+
+            fetch(lastUpdatedUrl)
+                .then(response => response.text())
+                .then(date => {
+                    document.getElementById('last-updated').innerText = `Last Updated: ${date.trim()}`;
+                })
+                .catch(error => {
+                    console.error('Error fetching last updated date:', error);
+                    document.getElementById('last-updated').innerText = "Error fetching last updated date.";
+                });
+        }
+
+        fetchServerStatus();  
+        fetchLastUpdated();   
+    </script>
+</div>
+
+</body>
+</html>
